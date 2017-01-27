@@ -63,9 +63,11 @@ namespace TransactionSignerMocker
                 //Determine base path for the application.
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 
+                /*
                 //Set the comments path for the swagger json and ui.
                 var xmlPath = Path.Combine(basePath, "TransactionSignerMocker.xml");
                 options.IncludeXmlComments(xmlPath);
+                */
             });
 
             var builder = new AzureBinder().Bind(settings);
@@ -74,7 +76,8 @@ namespace TransactionSignerMocker
             return new AutofacServiceProvider(builder.Build());
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
         {
             app.UseMiddleware<GlobalErrorHandlerMiddleware>();
             if (env.IsDevelopment())

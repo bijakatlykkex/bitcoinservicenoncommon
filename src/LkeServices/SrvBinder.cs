@@ -18,6 +18,7 @@ using LkeServices.Transactions;
 using PhoneNumbers;
 using QBitNinja.Client;
 using RestSharp;
+using TransactionSignerMocker.Repositories;
 
 namespace LkeServices
 {
@@ -56,6 +57,7 @@ namespace LkeServices
             ioc.RegisterType<SignatureVerifier>().As<ISignatureVerifier>();
             ioc.RegisterType<BitcoinBroadcastService>().As<IBitcoinBroadcastService>();
             ioc.RegisterType<FailedTransactionsManager>().As<IFailedTransactionsManager>();
+
 
             ioc.Register<Func<SignatureApiProviderType, ISignatureApiProvider>>(x =>
             {

@@ -34,6 +34,8 @@ using Core.Repositories.Wallets;
 using Core.Settings;
 using Core.TransactionMonitoring;
 using Core.TransactionQueueWriter;
+using TransactionSignerMocker.AzureRepositories;
+using TransactionSignerMocker.Repositories;
 
 namespace AzureRepositories
 {
@@ -90,6 +92,9 @@ namespace AzureRepositories
 
             ioc.RegisterInstance(new ApiRequestBlobRepository(new AzureBlobStorage(settings.Db.LogsConnString)))
                 .As<IApiRequestBlobRepository>();
+
+            ioc.RegisterInstance(new BitcoinServiceWallet(new AzureTableStorage<BitcoinServiceWalletEntity>(settings.Db.SharedConnString, "BitcoinServiceWallet", null), settings))
+                .As<IBitcoinServiceWallet>();
         }
 
         private static void BindQueue(this ContainerBuilder ioc, BaseSettings settings)
